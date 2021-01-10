@@ -1,7 +1,7 @@
 const connection = require("../config/connection.js");
 
 
-function printQuestionMarks(num) {
+ function printQuestionMarks(num) {
   const arr = [];
 
   for (const i = 0; i < num; i++) {
@@ -27,63 +27,52 @@ function objToSql(ob) {
 }
 
 const orm = {
-  all: function(tableInput, cb) {
-    const queryString = "SELECT * FROM " + tableInput + ";";
-    connection.query(queryString, function(err, result) {
+  selectAll: function(tableInput, cb) {
+    const dbQuery= "SELECT * FROM " + tableInput + ";";
+    connection.query(dbQuery, function(err, res) {
       if (err) {
         throw err;
       }
-      cb(result);
+      cb(res);
     });
   },
-  create: function(table, cols, vals, cb) {
-    const queryString = "INSERT INTO " + table;
+  insert: function(table, cols, vals, cb) {
+    const dbQuery = "INSERT INTO " + table + " (" + cols.toString() + ") " + " VALUES (" + printQuestionMarks(val.length) + ")";
+    console.log (dbQuery)
 
-    queryString += " (";
-    queryString += cols.toString();
-    queryString += ") ";
-    queryString += "VALUES (";
-    queryString += printQuestionMarks(vals.length);
-    queryString += ") ";
-
-    console.log(queryString);
-
-    connection.query(queryString, vals, function(err, result) {
-      if (err) {
-        throw err;
-      }
-
-      cb(result);
+    connection.query(dbQuery, vals, function (err,res) {
+        if (err) {
+            throw err;
+        }
+        cb(res);
     });
-  },
-  update: function(table, objColVals, condition, cb) {
-    const queryString = "UPDATE " + table;
+    },
 
-    queryString += " SET ";
-    queryString += objToSql(objColVals);
-    queryString += " WHERE ";
-    queryString += condition;
+    update: function(table, objColVals, condition, cb) {
+             const dbQuery = "UPDATE " + table +" SET ";
+            dbQuery += objToSql(objColVals);
+            dbQuery += " WHERE ";
+            dbQuery += condition;
+        
+            console.log (dbQuery)
 
-    console.log(queryString);
-    connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-
-      cb(result);
+    connection.query(dbQuery, vals, function (err,res) {
+        if (err) {
+            throw err;
+        }
+        cb(res);
     });
-  },
-  delete: function(table, condition, cb) {
-    const queryString = "DELETE FROM " + table;
-    queryString += " WHERE ";
-    queryString += condition;
+},
+  deleteOne: function(table, condition, cb) {
+    const dbQuery = "DELETE FROM " + table + "WHERE "+ condition;
 
-    connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
+    console.log (dbQuery)
 
-      cb(result);
+    connection.query(dbQuery, vals, function (err,res) {
+        if (err) {
+            throw err;
+        }
+        cb(res);
     });
   }
 };

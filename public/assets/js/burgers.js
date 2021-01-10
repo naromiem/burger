@@ -1,52 +1,56 @@
 $(function() {
     $(".change-devour").on("click", function(event) {
-      const id = $(this).data("id");
-      const newDevour = $(this).data("newdevour");
+        event.preventDefault();
+
+        const newBurger = {
+            burger_name: $("#newburger").val().trim(), devoured=0
+          };
+        
+    
   
-      var newDevouredBurger = {
-        devour: newDevour
-      };
-  
-      $.ajax("/api/burgers/" + id, {
-        type: "PUT",
-        data: newDevouredBurger
-      }).then(
-        function() {
-          console.log("changed devour to", newDevour);
-          location.reload();
-        }
-      );
-    });
-  
-    $(".create-form").on("submit", function(event) {
-      event.preventDefault();
-  
-      const newBurger = {
-        name: $("#burger").val().trim(),
-        devour: $("[name=devour]:checked").val().trim()
-      };
-  
-      $.ajax("/api/burgers", {
+    $.ajax("/api/burgers", {
         type: "POST",
         data: newBurger
       }).then(
         function() {
           console.log("create new burger");
           location.reload();
-        }
-      );
+        });
     });
-  
-    $(".delete-burger").on("click", function(event) {
-      const id = $(this).data("id");
+
+    $(".eatburger").on("click", function(event){
+        event.preventDefault();
+
+        const id = $(this).data("id");
+        const newDevouredBurger = {
+        devoured: 1
+      };
+
+
       $.ajax("/api/burgers/" + id, {
-        type: "DELETE"
+        type: "PUT",
+        data: newDevouredBurger
+      }).then(
+        function() {
+          console.log("burger devoured", newDevour);
+          location.reload();
+        });
+    });
+    });
+    
+    $(".delete-burger").on("click", function(event) {
+        event.preventDefault();
+
+      const id = $(this).data("id");
+
+      $.ajax({
+        type: "DELETE",
+        url: "/api/burgers/" + id
       }).then(
         function() {
           console.log("deleted burger", id);
           location.reload();
-        }
-      );
+        });
     });
-  });
+ 
   
