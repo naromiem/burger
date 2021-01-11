@@ -10,9 +10,7 @@ $(function() {
     $.ajax("/api/burgers", {
         type: "POST",
         data: newBurger
-      }).then(
-        function() {
-          console.log("New burger added successfully!");
+      }).then(function() {
           location.reload();
         });
     });
@@ -20,7 +18,8 @@ $(function() {
     $(".updateBtn").on("click", function(event){
         
       const id = $(this).data("id");
-      let newDevouredBurger = $(this).data('devouredState');
+      let newDevouredBurger = $(this).data('devouredstate');
+      console.log(newDevouredBurger)
       
       switch(newDevouredBurger){
         case 1:

@@ -21,8 +21,8 @@
                 <br>
                 <ul id="notDevoured">
                     {{#each burgers}}
-                    {{#unless devour}}
-                    {{> burgers/burger-block devoured=0}}
+                    {{#unless devoured}}
+                    {{>burgers/burger-block devoured=0}}
                     {{/unless}}
                     {{/each}}
                 </ul>
@@ -32,7 +32,7 @@
                 <ul id="isDevoured">
                     {{#each burgers}}
                     {{#if devoured}}
-                    {{> burgers/burger-block devoured=1}}
+                    {{>burgers/burger-block devoured=1}}
                     {{/if}}
                     {{/each}}
                 </ul>

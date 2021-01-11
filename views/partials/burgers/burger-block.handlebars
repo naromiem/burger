@@ -2,12 +2,12 @@
 	{{burger_name}}
 
 	{{#unless devoured}}
-		<button class="updateBtn" data-id="{{id}}" data-devouredState="{{devoured}}">
+		<button class="updateBtn" data-id="{{id}}" data-devouredstate="{{devoured}}">
 			Devour Me!
 		</button>
 	{{/unless}}
 
 	{{#if devoured}}
-		<button class="delete" data-id="{{this.id}}">DELETE!</button>
+		<button class="delete" data-id="{{id}}" data-devouredstate="{{devoured}}">DELETE!</button>
 	{{/if}}
 </li>
