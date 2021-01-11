@@ -1,51 +1,55 @@
 $(function() {
-    $(".change-devour").on("click", function(event) {
+    $(".submit").on("click", function(event) {
         event.preventDefault();
 
         const newBurger = {
-            burger_name: $("#newburger").val().trim(), devoured=0
+            burger_name: $("#burger").val().trim(),
+            devoured: 0
           };
-        
-    
-  
+         
     $.ajax("/api/burgers", {
         type: "POST",
         data: newBurger
       }).then(
         function() {
-          console.log("create new burger");
+          console.log("New burger added successfully!");
           location.reload();
         });
     });
 
-    $(".eatburger").on("click", function(event){
-        event.preventDefault();
-
-        const id = $(this).data("id");
-        const newDevouredBurger = {
-        devoured: 1
-      };
-
+    $(".updateBtn").on("click", function(event){
+        
+      const id = $(this).data("id");
+      let newDevouredBurger = $(this).data('devouredState');
+      
+      switch(newDevouredBurger){
+        case 1:
+          newDevouredBurger = false
+          break
+        case 0:
+          newDevouredBurger = true
+          break
+      }
+        console.log(newDevouredBurger)
+      const devourUpdated = {
+        devoured: newDevouredBurger
+      }
 
       $.ajax("/api/burgers/" + id, {
         type: "PUT",
-        data: newDevouredBurger
+        data: devourUpdated
       }).then(
         function() {
-          console.log("burger devoured", newDevour);
+          console.log("burger devoured", newDevouredBurger);
           location.reload();
         });
     });
-    });
-    
-    $(".delete-burger").on("click", function(event) {
-        event.preventDefault();
-
+        
+    $(".delete").on("click", function() {
       const id = $(this).data("id");
-
-      $.ajax({
-        type: "DELETE",
-        url: "/api/burgers/" + id
+        
+      $.ajax(`/api/burgers/${id}`, {
+        type: "DELETE"
       }).then(
         function() {
           console.log("deleted burger", id);
@@ -53,4 +57,4 @@ $(function() {
         });
     });
  
-  
+});  
