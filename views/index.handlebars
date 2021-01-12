@@ -1,22 +1,31 @@
 <div class="container">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12 text-center" id="top-bar">
 
-    <div class="empty">
-        <img src="/assets/img/burger.png" alt="chzburger" style="width:50%">
-        <h1>Eat-da-Burger!</h1>
-    </div>
+                    <img src="/assets/img/burger.png" height="200" class="center-block">
+                    <h1 class="text-center title">Eat-Da-Burger!</h1>
 
-    <div class="empty">
+                    <div class="empty form-group">
+                        <form class="empty create-form">
+                            <input type="text" id="burger" name="name"
+                                placeholder="What burger would you like?"><br><br>
+                            <button class="submit">SUBMIT</button>
+                        </form>
+                    </div>
 
-        <div class="empty form-group">
-            <form class="empty create-form">
-                <input type="text" id="burger" name="name" placeholder="What kind of burger would you like?"><br><br>
-                <button class="submit">SUBMIT</button>
-            </form>
-        </div>
 
-        <div class="full">
+                </div>
+            </div>
 
-            <div class="full">
+            <br>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+
+
+                <div class="row justify-content-center"></div>
                 <h2>"Not Devoured Yet"</h2>
                 <br>
                 <ul id="notDevoured">
@@ -26,7 +35,8 @@
                     {{/unless}}
                     {{/each}}
                 </ul>
-
+                
+                <div class="row justify-content-center">
                 <h2>Devoured!</h2>
                 <br>
                 <ul id="isDevoured">
@@ -36,6 +46,10 @@
                     {{/if}}
                     {{/each}}
                 </ul>
+            </div>
+
+            </div>
+
             </div>
 
         </div>
